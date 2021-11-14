@@ -1,17 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 
+const Home = () => {
+    return (
+        <div>
+            <h1>Home route</h1>
+        </div>
+    );
+};
+
+const Learn = () => {
+    return (
+        <div>
+            <h1>Learn</h1>
+            <p>All courses are listed here</p>
+        </div>
+    );
+};
+
+// Navigate to="learn"
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Router>
+        <Routes>
+            <Route path="/" element={<Home />} />{' '}
+            {/* sur /myapps, on redirige sur learn (aucun retour arrière possible). Replace permet le retour en arrière */}
+            <Route path="/myapps" element={<Navigate replace to="/learn" />} />{' '}
+            <Route path="/learn" element={<Learn />} />
+        </Routes>
+    </Router>,
+    document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
