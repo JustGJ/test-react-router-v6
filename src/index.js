@@ -10,6 +10,7 @@ import {
     Link,
     Outlet,
     useParams,
+    NavLink,
 } from 'react-router-dom';
 
 const Home = () => {
@@ -29,10 +30,11 @@ const Learn = () => {
             <Link to="/learn/courses" className="btn btn-success">
                 courses
             </Link>
+            {/* Dans les liens et chemins, on doit écrire l'intégralité de la route */}
             <Link to="/learn/bundles" className="btn btn-primary">
                 Bundles
             </Link>
-            {/* Outlet permet d'afficher le composant enfant sur la route séléctionnée */}
+            {/* Outlet affichera le composant enfant <Courses /> ou <Bundles /> */}
             <Outlet />
         </div>
     );
@@ -46,6 +48,22 @@ const Courses = () => {
         <div>
             <h1>Courses list</h1>
             <h4>Courses card</h4>
+
+            <p>More test</p>
+            <NavLink
+                to={`/learn/courses/${randomCourseName}`}
+                style={({ isActive }) => {
+                    return {
+                        backgroundColor: isActive ? 'pink' : 'yellow',
+                    };
+                }}>
+                {randomCourseName}
+            </NavLink>
+            <NavLink to={`/learn/courses/tests`} className="btn btn-light">
+                tests
+            </NavLink>
+
+            {/* Outlet affichera le composant enfant <CourseId /> ou test*/}
             <Outlet />
         </div>
     );
@@ -56,6 +74,7 @@ const CourseId = () => {
     return (
         <div>
             <h1>URL params is : {courseid}</h1>
+            <button className="btn btn-warning">Price</button>
         </div>
     );
 };
@@ -65,6 +84,13 @@ const Bundles = () => {
         <div>
             <h1>Bundle list</h1>
             <h4>Bundle card</h4>
+        </div>
+    );
+};
+const DashBoard = () => {
+    return (
+        <div>
+            <h1>Info that i got there is :</h1>
         </div>
     );
 };
