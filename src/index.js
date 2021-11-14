@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet } from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -24,6 +24,8 @@ const Learn = () => {
             <Link to="/learn/bundles" className="btn btn-primary">
                 Bundles
             </Link>
+            {/* Outlet permet d'afficher le composant enfant sur la route séléctionnée */}
+            <Outlet />
         </div>
     );
 };
@@ -37,7 +39,7 @@ const Courses = () => {
     );
 };
 
-const Bundle = () => {
+const Bundles = () => {
     return (
         <div>
             <h1>Bundle list</h1>
@@ -53,10 +55,10 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />{' '}
             {/* sur /myapps, on redirige sur learn (aucun retour arrière possible). Replace permet le retour en arrière */}
             <Route path="/myapps" element={<Navigate replace to="/learn" />} />{' '}
-            {/* /learn = route parent  /learn/courses & learn/bundles = routes enfants  l */}
+            {/* /learn = route parent  /learn/courses & learn/bundles = routes enfants. Outlet affichera ces composants enfants  */}
             <Route path="/learn" element={<Learn />}>
                 <Route path="courses" element={<Courses />} />
-                <Route path="bundles" element={<Bundle />} />
+                <Route path="bundles" element={<Bundles />} />
             </Route>
         </Routes>
     </Router>,
