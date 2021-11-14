@@ -2,7 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+    Link,
+    Outlet,
+    useParams,
+} from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -31,10 +39,23 @@ const Learn = () => {
 };
 
 const Courses = () => {
+    const courseList = ['React', 'Angular', 'Vue', 'Nodejs'];
+    const randomCourseName = courseList[Math.floor(Math.random() * courseList.length)];
+
     return (
         <div>
             <h1>Courses list</h1>
             <h4>Courses card</h4>
+            <Outlet />
+        </div>
+    );
+};
+
+const CourseId = () => {
+    const { courseid } = useParams();
+    return (
+        <div>
+            <h1>URL params is : {courseid}</h1>
         </div>
     );
 };
@@ -55,9 +76,11 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />{' '}
             {/* sur /myapps, on redirige sur learn (aucun retour arrière possible). Replace permet le retour en arrière */}
             <Route path="/myapps" element={<Navigate replace to="/learn" />} />{' '}
-            {/* /learn = route parent  /learn/courses & learn/bundles = routes enfants. Outlet affichera ces composants enfants  */}
+            {/* /learn = route parent  /learn/courses & learn/bundles = routes enfants. Outlet affichera les composants enfants à partir du composant parent  */}
             <Route path="/learn" element={<Learn />}>
-                <Route path="courses" element={<Courses />} />
+                <Route path="courses" element={<Courses />}>
+                    <Route path=":courseid" element={<CourseId />} />
+                </Route>
                 <Route path="bundles" element={<Bundles />} />
             </Route>
         </Routes>
