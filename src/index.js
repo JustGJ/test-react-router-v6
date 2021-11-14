@@ -17,6 +17,31 @@ const Learn = () => {
         <div>
             <h1>Learn</h1>
             <p>All courses are listed here</p>
+            {/* Sur /learn, les deux buttons apparaitons. En cliquant sur courses par exemple, on sera mené vers /learn/course  */}
+            <Link to="/learn/course" className="btn btn-success">
+                courses
+            </Link>
+            <Link to="/learn/bundle" className="btn btn-primary">
+                Bundle
+            </Link>
+        </div>
+    );
+};
+
+const Courses = () => {
+    return (
+        <div>
+            <h1>Courses list</h1>
+            <h4>Courses card</h4>
+        </div>
+    );
+};
+
+const Bundle = () => {
+    return (
+        <div>
+            <h1>Bundle list</h1>
+            <h4>Bundle card</h4>
         </div>
     );
 };
